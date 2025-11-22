@@ -1,4 +1,4 @@
-# 📄 Specyfikacja wymagań funkcjonalnych systemu dla projektu Micro Blog: 
+# 📄 Specyfikacja wymagań funkcjonalnych dla projektu Micro Blog: 
 
 ## 1. Rejestracja 
 
