@@ -95,45 +95,11 @@ Zalogowany użytkownik może wylogować się z systemu. Po wylogowaniu sesja jes
 - Jeśli sesja użytkownika wygasła przed wylogowaniem → system i tak przekierowuje na stronę logowania.  
 - System może zapamiętać preferencje użytkownika (np. język) nawet po wylogowaniu.
 
-## 4. Reset hasła
+## 4. Tworzenie nowego posta
 
 |  ID |   Nazwa   |   Aktorzy  |    Przypadek użycia   | Priorytet |
 | :-: | :-------: | :--------: | :-------------------: | :-------: |
-|  MB-004  | Reset hasła  | Użytkownik, System | Niezbędny |   Wysoki  |
-
-### Opis
-
-Użytkownik, który zapomniał hasła, może je zresetować, otrzymując link resetujący na e-mail powiązany z kontem.
-
-### Warunki początkowe
-
-- Użytkownik posiada konto w systemie i dostęp do zarejestrowanego e-maila.
-
-### Kryteria akceptacji
-
-- System wysyła poprawny link resetujący hasło na adres e-mail użytkownika.  
-- Link resetujący wygasa po określonym czasie lub po użyciu.  
-- Użytkownik może ustawić nowe hasło spełniające wymagania systemu.  
-
-### Scenariusz główny
-
-1. Użytkownik wybiera opcję "Zapomniałem hasła".  
-2. Wprowadza swój login lub e-mail.  
-3. System wysyła e-mail z linkiem resetującym hasło.  
-4. Użytkownik klika link i ustawia nowe hasło.  
-5. System potwierdza zmianę hasła i umożliwia logowanie nowym hasłem.  
-
-### Scenariusze alternatywne i rozszerzenia
-
-- Użytkownik wprowadza nieistniejący e-mail → system wyświetla komunikat o błędzie.  
-- Link resetujący wygasł → system umożliwia ponowne wysłanie linku.  
-- System wymaga, aby nowe hasło spełniało określone kryteria bezpieczeństwa (np. minimalna długość, znaki specjalne).
-
-## 5. Tworzenie nowego posta
-
-|  ID |   Nazwa   |   Aktorzy  |    Przypadek użycia   | Priorytet |
-| :-: | :-------: | :--------: | :-------------------: | :-------: |
-|  MB-005  | Tworzenie posta  | Użytkownik, System | Niezbędny |   Wysoki  |
+|  MB-004  | Tworzenie posta  | Użytkownik, System | Niezbędny |   Wysoki  |
 
 ### Opis
 
@@ -160,11 +126,11 @@ Użytkownik może tworzyć nowe posty, które będą widoczne na jego linii czas
 - Post zawiera niedozwolone słowa lub zbyt długi tekst → system wyświetla komunikat o błędzie.  
 - Użytkownik dodaje zdjęcia lub multimedia → system je zapisuje i wyświetla w poście.
 
-## 6. Wyświetlanie linii czasu
+## 5. Wyświetlanie linii czasu
 
 |  ID |   Nazwa   |   Aktorzy  |    Przypadek użycia   | Priorytet |
 | :-: | :-------: | :--------: | :-------------------: | :-------: |
-|  MB-006  |  Wyświetlanie linii czasu  | Użytkownik, System | Niezbędny |   Wysoki  |
+|  MB-005  |  Wyświetlanie linii czasu  | Użytkownik, System | Niezbędny |   Wysoki  |
 
 ### Opis
 
@@ -189,11 +155,11 @@ System wyświetla posty użytkownika oraz posty obserwowanych osób w kolejnośc
 - Brak postów → system wyświetla komunikat „Brak postów do wyświetlenia”.  
 - System umożliwia przewijanie historii postów (scroll, stronicowanie).
 
-## 7. Wyświetlanie publicznych postów dla niezalogowanych
+## 6. Wyświetlanie publicznych postów dla niezalogowanych
 
 |  ID |   Nazwa   |   Aktorzy  |    Przypadek użycia   | Priorytet |
 | :-: | :-------: | :--------: | :-------------------: | :-------: |
-|  MB-007  |  Publiczne posty  | Użytkownik, System | Niezbędny |   Średni  |
+|  MB-006  |  Publiczne posty  | Użytkownik, System | Niezbędny |   Średni  |
 
 ### Opis
 Niezalogowani użytkownicy mogą przeglądać wybrane publiczne posty.
@@ -212,11 +178,11 @@ Niezalogowani użytkownicy mogą przeglądać wybrane publiczne posty.
 ### Scenariusze alternatywne i rozszerzenia
 - Brak publicznych postów → komunikat „Brak publicznych postów do wyświetlenia”.
 
-## 8. Przeglądanie profilu innego użytkownika
+## 7. Przeglądanie profilu innego użytkownika
 
 |  ID |   Nazwa   |   Aktorzy  |    Przypadek użycia   | Priorytet |
 | :-: | :-------: | :--------: | :-------------------: | :-------: |
-|  MB-008  |  Przeglądanie profilu  | Użytkownik, System | Niezbędny |   Wysoki  |
+|  MB-007  |  Przeglądanie profilu  | Użytkownik, System | Niezbędny |   Wysoki  |
 
 ### Opis
 
@@ -241,11 +207,11 @@ Użytkownik może przeglądać profil innego użytkownika, w tym jego posty i in
 - Profil prywatny → system wyświetla komunikat „Profil prywatny”.  
 - Możliwość obserwowania użytkownika z poziomu profilu.
 
-## 9. Obserwowanie użytkownika (Follow)
+## 8. Obserwowanie użytkownika (Follow)
 
 |  ID |   Nazwa   |   Aktorzy  |    Przypadek użycia   | Priorytet |
 | :-: | :-------: | :--------: | :-------------------: | :-------: |
-|  MB-009  |  Follow  | Użytkownik, System | Niezbędny |   Wysoki  |
+|  MB-008  |  Follow  | Użytkownik, System | Niezbędny |   Wysoki  |
 
 ### Opis
 
@@ -271,11 +237,11 @@ Użytkownik może obserwować innych użytkowników, aby widzieć ich posty w sw
 - Użytkownik już obserwuje → przycisk zmienia się na „Obserwowany”.  
 - System wysyła powiadomienie obserwowanemu użytkownikowi.
 
-## 10. Przestanie obserwowania (Unfollow)
+## 9. Przestanie obserwowania (Unfollow)
 
 |  ID |   Nazwa   |   Aktorzy  |    Przypadek użycia   | Priorytet |
 | :-: | :-------: | :--------: | :-------------------: | :-------: |
-|  MB-010  |  Unfollow  | Użytkownik, System | Niezbędny |   Wysoki  |
+|  MB-09  |  Unfollow  | Użytkownik, System | Niezbędny |   Wysoki  |
 
 ### Opis
 
@@ -300,11 +266,11 @@ Użytkownik może przestać obserwować innego użytkownika, aby jego posty nie 
 
 - Użytkownik nie obserwuje wybranego użytkownika → przycisk nieaktywny.  
 
-## 11. Wyświetlanie listy obserwowanych (Following)
+## 10. Wyświetlanie listy obserwowanych (Following)
 
 |  ID |   Nazwa   |   Aktorzy  |    Przypadek użycia   | Priorytet |
 | :-: | :-------: | :--------: | :-------------------: | :-------: |
-|  MB-011  |  Lista Following  | Użytkownik, System | Niezbędny |   Średni  |
+|  MB-010  |  Lista Following  | Użytkownik, System | Niezbędny |   Średni  |
 
 ### Opis
 
@@ -328,11 +294,11 @@ Użytkownik może przeglądać listę osób, które obserwuje.
 
 - Brak obserwowanych użytkowników → komunikat „Nie obserwujesz nikogo”.
 
-## 12. Wyświetlanie listy obserwujących (Followers)
+## 11. Wyświetlanie listy obserwujących (Followers)
 
 |  ID |   Nazwa   |   Aktorzy  |    Przypadek użycia   | Priorytet |
 | :-: | :-------: | :--------: | :-------------------: | :-------: |
-|  MB-012  |  Lista Followers  | Użytkownik, System | Niezbędny |   Średni  |
+|  MB-011  |  Lista Followers  | Użytkownik, System | Niezbędny |   Średni  |
 
 ### Opis
 
