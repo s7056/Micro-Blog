@@ -2,8 +2,8 @@ spring:
   application:
     name: 'mikroblog'
   datasource:
-    url: jdbc:hsqldb:hsql://localhost:9001/mikroblog # Server mode
-    # url: jdbc:hsqldb:file:./data/mikroblog-db   # file-based DB, persists between restarts
+    #url: jdbc:hsqldb:hsql://localhost:9001/mikroblog # Server mode
+    url: jdbc:hsqldb:file:./data/mikroblog-db   # file-based DB, persists between restarts
     # url: jdbc:hsqldb:mem:mikroblog # In-memory only (data lost on restart)
 
     driver-class-name: org.hsqldb.jdbc.JDBCDriver

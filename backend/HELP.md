@@ -11,10 +11,30 @@ For further reference, please consider the following sections:
 * [Spring Security](https://docs.spring.io/spring-boot/4.0.0/reference/web/spring-security.html)
 * [Spring Boot DevTools](https://docs.spring.io/spring-boot/4.0.0/reference/using/devtools.html)
 
+
+To run backend app:
+cd backend
+./mvnw spring-boot:run
+
+
 http://localhost:8080/hsqldb
 
 # Register
 curl -X POST http://localhost:8080/api/auth/register -H "Content-Type: application/json" -d '{"login":"alice","name":"Alice Doe","email":"alice@example.com","password":"Secret123"}'
+curl -X POST http://localhost:8080/api/auth/register -H "Content-Type: application/json" -d '{"login":"belice","name":"Belice Doe","email":"belice@example.com","password":"Secret123"}'
+curl -X POST http://localhost:8080/api/auth/register -H "Content-Type: application/json" -d '{"login":"celice","name":"Celice Doe","email":"celice@example.com","password":"Secret123"}'
+curl -X POST http://localhost:8080/api/auth/register -H "Content-Type: application/json" -d '{"login":"delice","name":"Delice Doe","email":"delice@example.com","password":"Secret123"}'
 
 # Login (form login works with session, but POST also works)
 curl -X POST http://localhost:8080/api/auth/login -H "Content-Type: application/json" -c cookie.txt -d '{"login":"alice","password":"Secret123"}'
+curl -X POST http://localhost:8080/api/auth/login -H "Content-Type: application/json" -c cookie.txt -d '{"login":"belice","password":"Secret123"}'
+
+curl -b cookie.txt -X POST http://localhost:8080/api/posts \
+-H "Content-Type: application/json" \
+-d '{"content":"Cześć! To mój pierwszy post na mikroblogu!"}'
+
+
+
+
+
+

@@ -3,14 +3,13 @@ package pl.atins.mikroblog.user;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.atins.mikroblog.user.dto.AuthResponse;
 import pl.atins.mikroblog.user.dto.LoginRequest;
 import pl.atins.mikroblog.user.dto.RegisterRequest;
 
@@ -21,6 +20,7 @@ public class AuthController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     public AuthController(UserRepository userRepository,
                           PasswordEncoder passwordEncoder,
@@ -28,6 +28,7 @@ public class AuthController {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
+        this.jwtService = new JwtService();
     }
 
     @PostMapping("/register")
@@ -51,16 +52,13 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest req) {
-        try {
-            Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(req.login(), req.password())
-            );
-            // moze zrobić JWT ?
-            System.out.println(auth.getDetails());
-            return ResponseEntity.ok("Login successful");
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(401).body("Invalid login or password");
-        }
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest req) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(req.login(), req.password())
+        );
+        User user = userRepository.findByLogin(req.login()).orElseThrow();
+        String token = jwtService.generateToken(user);
+        return ResponseEntity.ok(new AuthResponse(token));
     }
+
 }
