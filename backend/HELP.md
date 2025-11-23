@@ -11,21 +11,10 @@ For further reference, please consider the following sections:
 * [Spring Security](https://docs.spring.io/spring-boot/4.0.0/reference/web/spring-security.html)
 * [Spring Boot DevTools](https://docs.spring.io/spring-boot/4.0.0/reference/using/devtools.html)
 
-### Guides
-The following guides illustrate how to use some features concretely:
+http://localhost:8080/hsqldb
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Securing a Web Application](https://spring.io/guides/gs/securing-web/)
-* [Spring Boot and OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
-* [Authenticating a User with LDAP](https://spring.io/guides/gs/authenticating-ldap/)
+# Register
+curl -X POST http://localhost:8080/api/auth/register -H "Content-Type: application/json" -d '{"login":"alice","name":"Alice Doe","email":"alice@example.com","password":"Secret123"}'
 
-### Maven Parent overrides
-
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
-
+# Login (form login works with session, but POST also works)
+curl -X POST http://localhost:8080/api/auth/login -H "Content-Type: application/json" -c cookie.txt -d '{"login":"alice","password":"Secret123"}'
