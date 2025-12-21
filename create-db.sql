@@ -19,12 +19,12 @@ CREATE TABLE posts (
 
 CREATE TABLE follows (
                          follower_id BIGINT NOT NULL,
-                         following_id BIGINT NOT NULL,
+                         followed_id BIGINT NOT NULL,
                          followed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                         PRIMARY KEY (follower_id, following_id),
+                         PRIMARY KEY (follower_id, followed_id),
                          CONSTRAINT fk_follows_follower FOREIGN KEY (follower_id) REFERENCES users(id),
-                         CONSTRAINT fk_follows_following FOREIGN KEY (following_id) REFERENCES users(id),
-                         CONSTRAINT uq_follows UNIQUE (follower_id, following_id)
+                         CONSTRAINT fk_follows_following FOREIGN KEY (followed_id) REFERENCES users(id),
+                         CONSTRAINT uq_follows UNIQUE (follower_id, followed_id)
 );
 
 
