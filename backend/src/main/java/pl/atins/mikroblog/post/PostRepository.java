@@ -1,9 +1,25 @@
 package pl.atins.mikroblog.post;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
+
+
+//    @Query("""
+//            SELECT p FROM Post p
+//            WHERE p.author = :myUser
+//               OR p.author IN (
+//                   SELECT f.followed FROM Follow f
+//                   WHERE f.follower = :myUser
+//               )
+//            ORDER BY p.createdAt DESC
+//            """)
+//    List<Post> findAllMyPostsAndFollowedUsersPosts(@Param("myUserId") Long myUserId);
+
 
     //get all public posts
     /*
@@ -18,7 +34,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 
 
-    List<Post> findAllOrderByCreatedAtDesc();
+//    List<Post> findAllOrderByCreatedAtDescending();
     /*
         Metoda, która pobiera wszystkie wiadomości dla wybranego/konkretnego
     użytkownika. Zastanów się nad parametrem wejściowym metody i typem zwracanym

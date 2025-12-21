@@ -8,8 +8,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "follows",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"follower_id", "following_id"}))
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+        uniqueConstraints = @UniqueConstraint(columnNames = {"follower_id", "followed_id"}))
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @IdClass(FollowId.class)
 public class Follow {
 
@@ -18,17 +22,17 @@ public class Follow {
     private Long followerId;
 
     @Id
-    @Column(name = "following_id")
+    @Column(name = "followed_id")
     private Long followingId;
 
     @Column(nullable = false)
-    private LocalDateTime followedAt = LocalDateTime.now();
+    private LocalDateTime followedAt;
 
     @ManyToOne
     @JoinColumn(name = "follower_id", insertable = false, updatable = false)
     private User follower;
 
     @ManyToOne
-    @JoinColumn(name = "following_id", insertable = false, updatable = false)
-    private User following;
+    @JoinColumn(name = "followed_id", insertable = false, updatable = false)
+    private User followed;
 }
