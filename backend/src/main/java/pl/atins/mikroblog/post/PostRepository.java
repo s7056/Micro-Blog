@@ -3,23 +3,29 @@ package pl.atins.mikroblog.post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import pl.atins.mikroblog.user.User;
 
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
+    /*
+    Pobranie pełnej linii czasu użytkownika (Full timeline)
 
-//    @Query("""
-//            SELECT p FROM Post p
-//            WHERE p.author = :myUser
-//               OR p.author IN (
-//                   SELECT f.followed FROM Follow f
-//                   WHERE f.follower = :myUser
-//               )
-//            ORDER BY p.createdAt DESC
-//            """)
-//    List<Post> findAllMyPostsAndFollowedUsersPosts(@Param("myUserId") Long myUserId);
+        Metoda, która pobiera wszystkie moje wiadomości (opublikowane przeze mnie) i
+        wszystkie wiadomości innych użytkowników których śledzę.
+     */
 
+    @Query("""
+            SELECT p FROM Post p
+            WHERE p.author = :myUser
+               OR p.author IN (
+                   SELECT f.followed FROM Follow f
+                   WHERE f.follower = :myUser
+               )
+            ORDER BY p.createdAt DESC
+            """)
+    List<Post> findAllMyPostsAndFollowedUsersPosts(@Param("myUser") User myUser);
 
     //get all public posts
     /*
@@ -32,9 +38,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     //get all public or mine posts by newest
     List<Post> findByPrivatePostFalseOrAuthorIdOrderByCreatedAtDesc(Long authorId);
 
-
-
-//    List<Post> findAllOrderByCreatedAtDescending();
+    //    List<Post> findAllOrderByCreatedAtDescending();
     /*
         Metoda, która pobiera wszystkie wiadomości dla wybranego/konkretnego
     użytkownika. Zastanów się nad parametrem wejściowym metody i typem zwracanym
@@ -43,16 +47,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByAuthorIdOrderByCreatedAtDesc(Long authorId);
 
 
-/*
-    Metoda, która pobiera wszystkie moje wiadomości (opublikowane przeze mnie) i
-    wszystkie wiadomości innych użytkowników których śledzę. Zastanów się nad
-    parametrem wejściowym metody i typem zwracanym metody. Inaczej pobranie pełnej
-    linii czasu użytkownika (Full timeline)
-
-    SELECT FROM POST
-
-
-
+    /*
     Metoda która dodaje wiadomość dla użytkownika
             */
 }

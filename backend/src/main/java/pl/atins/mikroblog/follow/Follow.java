@@ -23,7 +23,7 @@ public class Follow {
 
     @Id
     @Column(name = "followed_id")
-    private Long followingId;
+    private Long followedId;
 
     @Column(nullable = false)
     private LocalDateTime followedAt;

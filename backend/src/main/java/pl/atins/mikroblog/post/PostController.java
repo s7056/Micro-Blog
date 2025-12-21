@@ -48,7 +48,6 @@ public class PostController {
             // Logged in: public + own private posts
             posts = postRepository.findByPrivatePostFalseOrAuthorIdOrderByCreatedAtDesc(currentUser.getId());
         }
-
         return ResponseEntity.ok(posts.stream().map(this::toResponse).toList());
     }
 
@@ -63,6 +62,12 @@ public class PostController {
                 post.getAuthor().getLogin(),
                 post.getAuthor().getName()
         );
+    }
+
+    @GetMapping("/timeline")
+    public ResponseEntity<List<PostResponse>> getMyTimeline(@AuthenticationPrincipal User currentUser) {
+        var posts = postRepository.findAllMyPostsAndFollowedUsersPosts(currentUser);
+        return ResponseEntity.ok(posts.stream().map(this::toResponse).toList());
     }
 
 }
