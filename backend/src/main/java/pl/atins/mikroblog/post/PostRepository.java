@@ -30,7 +30,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     //get all public posts
     /*
     Metoda, która pobiera wszystkie wiadomości od wszystkich użytkowników.
-    Zastanów się nad parametrem wejściowym metody i typem zwracanym metody. Inaczej
     pobranie pełnej publicznej linii czasu dla całego bloga (Full public timeline)
     */
     List<Post> findByPrivatePostFalseOrderByCreatedAtDesc();
@@ -41,13 +40,12 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     //    List<Post> findAllOrderByCreatedAtDescending();
     /*
         Metoda, która pobiera wszystkie wiadomości dla wybranego/konkretnego
-    użytkownika. Zastanów się nad parametrem wejściowym metody i typem zwracanym
-    metody. Inaczej pobranie linii czasu (Timeline) konkretnego użytkownika.
+ Inaczej pobranie linii czasu (Timeline) konkretnego użytkownika.
      */
     List<Post> findByAuthorIdOrderByCreatedAtDesc(Long authorId);
-
 
     /*
     Metoda która dodaje wiadomość dla użytkownika
             */
+    //jest już wbudowana w interfejs
 }

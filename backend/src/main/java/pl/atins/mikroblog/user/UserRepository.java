@@ -16,8 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Metoda, która rejestruje/dodaje nowego użytkownika
     nie jest tu potrzebna - już jest wbudowana w repo.
     */
-    @Override
-    User save(User user);
+//    @Override
+//    User save(User user);
 
     boolean existsByLogin(String login);
     boolean existsByEmail(String email);

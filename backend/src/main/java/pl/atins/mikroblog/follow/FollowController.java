@@ -33,8 +33,8 @@ public class FollowController {
                 .followerId(currentUser.getId())
                 .followedId(userId)
                 .followedAt(LocalDateTime.now())
-                .follower(currentUser)
-                .followed(followed)
+//                .follower(currentUser)
+//                .followed(followed)
                 .build();
 
         followRepository.save(follow);
