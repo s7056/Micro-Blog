@@ -48,4 +48,47 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Metoda która dodaje wiadomość dla użytkownika
             */
     //jest już wbudowana w interfejs
+
+
+    @Query( """
+    SELECT DISTINCT p
+    FROM Post p
+    LEFT JOIN Follow f
+      ON f.followed = p.author AND f.follower = :myUser
+    LEFT JOIN Follow m
+      ON m.follower = p.author AND m.followed = :myUser
+    WHERE
+      p.author = :myUser
+      OR (
+        f.followedId IS NOT NULL
+        AND (p.privatePost = false OR m.followedId IS NOT NULL)
+      )
+    ORDER BY p.createdAt DESC
+  """
+    )
+    List<Post> findPersonalFeed2(@Param("myUser") User myUser);
+
+
+    @Query(
+            """
+                SELECT DISTINCT p
+                FROM Post p
+                LEFT JOIN Follow f
+                  ON f.follower = :myUser AND f.followed = p.author
+                LEFT JOIN Follow m
+                  ON m.follower = p.author AND m.followed = :myUser
+                WHERE
+                  p.author = :myUser
+                  OR (
+                    f.followerId IS NOT NULL
+                    AND (p.privatePost = false OR m.followerId IS NOT NULL)
+                  )
+                ORDER BY p.createdAt DESC
+              """
+
+    )
+    List<Post> findPersonalFeed(@Param("myUser") User myUser);
+
+
+    List<Post> findAllByOrderByCreatedAtDesc();
 }
