@@ -5,7 +5,7 @@ type LoginResponse = | { success: false; token: null } | { success: true; token:
 export async function login({
     login,
     password,
-}: {
+} : {
     login: string;
     password: string;
 }): Promise<LoginResponse> {
