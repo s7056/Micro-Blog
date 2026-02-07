@@ -1,0 +1,114 @@
+---
+import "../styles/form.css";
+import Layout from "../layouts/Layout.astro";
+import LogoutButton from "../components/LogoutButton.astro";
+
+const API = import.meta.env.API;
+const cookieName = import.meta.env.COOKIE_NAME || "_MicroBlog_Security_Login_";
+
+const token = Astro.cookies.get(cookieName)?.value;
+let logged = false;
+let user = null;
+
+if (token) {
+  try {
+    const res = await fetch(`${API}/api/users/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.ok) {
+      user = await res.json();
+      logged = true;
+    } else {
+      logged = false;
+    }
+  } catch (e) {
+    logged = false;
+  }
+}
+---
+
+<Layout page="Profile">
+    {logged && (
+        <div class="w-full max-w-md mx-auto p-8 bg-white rounded shadow-md text-center">
+            <div class="flex justify-between items-center gap-4">
+                <h1 class="text-3xl font-bold mb-2">Witaj {user?.name ?? "Użytkowniku"} 👋</h1>
+                <LogoutButton />
+            </div>
+
+            <div class="text-left">
+                <p class="text-gray-600 mb-4">Email: {user?.email}</p>
+                <div class="text-sm text-gray-500 mb-6">ID: {user?.id}</div>
+            </div>
+
+            <form
+                class="space-y-4 text-left"
+                on:submit={async (e) => {
+                    e.preventDefault();
+                    const form = e.target;
+                    const content = form.content.value;
+                    const privatePost = form.privatePost.checked;
+
+                    try {
+                    const res = await fetch(`${API}/api/posts`, {
+                        method: "POST",
+                        headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({ content, privatePost }),
+                    });
+
+                    if (!res.ok) {
+                        const text = await res.text();
+                        alert("Błąd dodawania wpisu: " + text);
+                        return;
+                    }
+
+                    const data = await res.json();
+                    alert(`Dodano wpis: ${data.content}`);
+                    form.reset();
+                    } catch (err) {
+                    console.error(err);
+                    alert("Błąd dodawania wpisu!");
+                    }
+                }}
+            >
+                <h2 class="text-xl font-semibold mb-2">Dodaj nowy wpis</h2>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1" for="content">Treść wpisu</label>
+                    <textarea
+                        id="content"
+                        name="content"
+                        rows="4"
+                        required
+                        class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Napisz coś..."
+                    ></textarea>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" id="privatePost" name="privatePost" class="h-4 w-4"/>
+                    <label for="privatePost" class="text-sm">Wpis prywatny</label>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <button
+                        type="submit"
+                        class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 transition"
+                    >
+                        Dodaj wpis
+                    </button>
+                    <a
+                        href="/"
+                        class="px-6 py-2 bg-blue-500 text-white text-center rounded hover:bg-blue-600 transition"
+                    >
+                        Pokaż wszystkie wpisy
+                    </a>
+                </div>
+            </form>
+        </div>
+    )}
+</Layout>

@@ -1,0 +1,1 @@
+export const isLoggedIn = () => typeof window !== "undefined" && !!localStorage.getItem("token");
