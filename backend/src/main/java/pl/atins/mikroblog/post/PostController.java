@@ -32,23 +32,26 @@ public class PostController {
                 .build();
 
         Post saved = postRepository.save(post);
-
         PostResponse response = toResponse(saved);
         return ResponseEntity.ok(response);
     }
 
+    /*
+    ALL POSTS (dev endpoint, not for production)
+    to show all the existing posts
+     */
     @GetMapping
     public ResponseEntity<List<PostResponse>> getAllPosts(@AuthenticationPrincipal User currentUser) {
         List<Post> posts;
 
-        if (currentUser == null) {
-            // Not logged only public posts
-            posts = postRepository.findByPrivatePostFalseOrderByCreatedAtDesc();
-        } else {
-            // Logged in: public + own private posts
-            posts = postRepository.findByPrivatePostFalseOrAuthorIdOrderByCreatedAtDesc(currentUser.getId());
-        }
-
+        posts = postRepository.findAllByOrderByCreatedAtDesc();
+//        if (currentUser == null) {
+//            // Not logged only public posts
+//            posts = postRepository.findByPrivatePostFalseOrderByCreatedAtDesc();
+//        } else {
+//            // Logged in: public + own private posts
+//            posts = postRepository.findByPrivatePostFalseOrAuthorIdOrderByCreatedAtDesc(currentUser.getId());
+//        }
         return ResponseEntity.ok(posts.stream().map(this::toResponse).toList());
     }
 
@@ -63,6 +66,18 @@ public class PostController {
                 post.getAuthor().getLogin(),
                 post.getAuthor().getName()
         );
+    }
+
+    @GetMapping("/timeline")
+    public ResponseEntity<List<PostResponse>> getMyTimeline(@AuthenticationPrincipal User currentUser) {
+        var posts = postRepository.findAllMyPostsAndFollowedUsersPosts(currentUser);
+        return ResponseEntity.ok(posts.stream().map(this::toResponse).toList());
+    }
+
+    @GetMapping("/feed")
+    public ResponseEntity<List<PostResponse>> getMyPersonalFeed(@AuthenticationPrincipal User currentUser) {
+        var posts = postRepository.findPersonalFeed(currentUser);
+        return ResponseEntity.ok(posts.stream().map(this::toResponse).toList());
     }
 
 }

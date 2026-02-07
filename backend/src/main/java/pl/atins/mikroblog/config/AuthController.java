@@ -1,4 +1,4 @@
-package pl.atins.mikroblog.user;
+package pl.atins.mikroblog.config;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.atins.mikroblog.user.User;
+import pl.atins.mikroblog.user.UserRepository;
 import pl.atins.mikroblog.user.dto.AuthResponse;
 import pl.atins.mikroblog.user.dto.LoginRequest;
 import pl.atins.mikroblog.user.dto.RegisterRequest;

@@ -1,10 +1,11 @@
-package pl.atins.mikroblog.user;
+package pl.atins.mikroblog.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.atins.mikroblog.user.UserRepository;
 
 @Service
 @RequiredArgsConstructor

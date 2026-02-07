@@ -1,14 +1,14 @@
-package pl.atins.mikroblog.user;
+package pl.atins.mikroblog.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.atins.mikroblog.user.User;
 
 import java.util.Date;
 
-// JwtService.java
 @Service
 @RequiredArgsConstructor
 public class JwtService {
